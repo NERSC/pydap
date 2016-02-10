@@ -24,7 +24,7 @@ class NetCDFResponse(BaseResponse):
     @staticmethod
     def serialize(dataset):
         buf = StringIO()
-        f = netcdf_file(buf, 'w')
+        f = netcdf_file(buf, 'w', version=2)
 
         # Global attributes.
         nc_global = dataset.attributes.pop('NC_GLOBAL', {})
