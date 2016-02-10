@@ -139,18 +139,19 @@ yes? show data</code></pre>
                     <h2>Downloading data with GrADS</h2>
                     <p>To access this dataset with the <a href="http://www.iges.org/grads/">GrADS</a> data analysis and visualization software developed by <a href="http://www.iges.org/cola.html">COLA</a>:</p>
 
-                    <pre><code>$ gradsdap
+                    <pre><code>$ grads
 ga-&gt; sdfopen ${location[:-5]}
 ga-&gt; query file</code></pre>
                 </div>
 
                 <div id="idl">
                     <h2>Downloading data with IDL</h2>
-                    <p>To access this dataset with the <a href="http://opendap.org/download/idl-client.html">OPeNDAP IDL Client</a>, a tool for the <a href="http://www.ittvis.com/ProductServices/IDL.aspx">IDL</a> data analysis and visualization package:</p>
+		    <p>To access this dataset with the <a href="http://www.exelisvis.com/ProductsServices/IDL.aspx">IDL</a> data analysis and visualization package:</p>
 
                     <pre><code>IDL&gt; url = '${location[:-5]}'
-IDL&gt; stat = opendap_get(url, def, mode='dds')
-IDL&gt; help, def, /structures</code></pre>
+IDL&gt; id = ncdf_open(url)
+IDL&gt; res = ncdf_inquire(id)
+IDL&gt; help, res</code></pre>
                 </div>
 
                 <div id="pydap">
