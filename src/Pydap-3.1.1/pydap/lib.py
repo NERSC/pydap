@@ -73,7 +73,9 @@ def quote(name):
         elif c not in string.letters + string.digits + '''_!~*'-"''' + '%':
             c = urllib.quote(c)
         return c
-    return ''.join(map(escape_, name))
+    # NERSC Local mod - SPC 
+    # return ''.join(map(escape_, name))
+    return ''.join(map(escape_, name)).encode('utf8')
 
 
 def escape(s):
