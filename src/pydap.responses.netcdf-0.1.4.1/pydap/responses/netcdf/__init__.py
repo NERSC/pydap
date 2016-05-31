@@ -2,6 +2,7 @@ from StringIO import StringIO
 import itertools
 
 import numpy
+import os
 
 from pupynere import netcdf_file
 
@@ -20,6 +21,17 @@ class NetCDFResponse(BaseResponse):
                 ('Content-description', 'dods_netcdf'),
                 ('Content-type', 'application/x-netcdf'),
                 ])
+
+    def __call__(self, environ, start_response):
+        # Hack to remove the extra .nc when serving up netcdf format data
+        path_info = environ.get('PATH_INFO') or environ.get('SCRIPT_NAME', '')
+
+        if path_info.endswith('.nc.nc'):
+            filename = os.path.basename(path_info)[:-3]
+            self.headers.extend([
+                ('Content-disposition', 'filename=%s' % filename),
+            ])
+        return super(NetCDFResponse, self).__call__(environ, start_response)
 
     @staticmethod
     def serialize(dataset):
